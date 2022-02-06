@@ -92,6 +92,42 @@ class AdminModel {
       
     });
   }
+  
+  saveServiceRequest(data) {
+	 let requestID = data.deviceInfo.requestId;
+	 let userid = data.deviceInfo.userId;
+	 let serviceid =  uuidv1();
+	 let answers = JSON.stringify(data.deviceInfo.answers);
+	 console.log(answers);
+	 return new Promise((resolve) => {
+		var insertSql = `INSERT INTO service_flow (id, serviceid, serviceflow, service_date, UserId) VALUES('${serviceid}', '${requestID}', '${answers}', now(),'${userid}' )`;
+		 let response = {};
+		 connection.query(insertSql, function(err, rows, fields) {
+        if (err) {
+          response.error = err;
+        } else {
+        response.response = 'Service Flow Inserted Successfully';  
+        }
+       resolve(response); 
+      });
+	});
+  }
+  
+  getServiceRequest(data) {
+	 let requestID = data.requestId;
+	 return new Promise((resolve) => {
+		var getSql = `SELECT * FROM service_flow  WHERE serviceid ='${requestID}'`;
+		 let response = {};
+		 connection.query(getSql, function(err, rows, fields) {
+        if (err) {
+          response.error = err;
+        } else {
+        response = rows;  
+        }
+       resolve(response); 
+      });
+	});
+  }
 }
 
 module.exports = AdminModel;

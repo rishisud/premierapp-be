@@ -15,6 +15,23 @@ class AdminController {
     });
   }
   
+  saveServiceRequest(req, res) {
+    return new Promise((resolve, reject) => {
+	  console.log(req.body);
+      admin.saveServiceRequest(req.body).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
+  
+  getServiceRequest(req, res) {
+    return new Promise((resolve, reject) => {
+      admin.getServiceRequest(req.query).then(function(res) {
+        resolve(res);
+      });
+    });
+  }
+  
   
 }
 

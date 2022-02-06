@@ -59,6 +59,26 @@ router.post("/api/engineer/update",
     });
 });
 
+router.post("/api/servicerequest/save",
+ function (req, res) {
+    adminObj.saveServiceRequest(req, res).then(function(response){
+        if (response.error) {
+          res.status(400)
+        }
+        res.send(response);
+    });
+});
+
+router.get("/api/servicerequest/get",
+ function (req, res) {
+    adminObj.getServiceRequest(req, res).then(function(response){
+        if (response.error) {
+          res.status(400)
+        }
+        res.send(response);
+    });
+});
+
 router.post("/api/supervisor/save",
  function (req, res) {
     adminObj.saveRefAgent(req, res).then(function(response){
